@@ -1,0 +1,143 @@
+:root {
+  --transparent: rgba(255,255,255,0);
+}
+
+html {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  z-index: -200;
+  background: rgb(117,117,117);
+  background: linear-gradient(0deg, rgb(173, 89, 10) 0%, rgb(8, 5, 26) 19%, rgb(9, 5, 31) 100%);
+  overflow: scroll;
+}
+.main-container {
+  z-index: 2;
+  position: absolute;
+}
+
+#c {
+    display: block;
+    position: fixed;
+    z-index: -1;
+  }
+
+
+
+
+  h1 { 
+    
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: rgb(255, 111, 255);
+    letter-spacing: 0.2em;
+    font-size: 5vw;
+    font-weight: bold;
+    margin: 0.2em;
+    z-index: 2;
+    position: absolute;
+  }
+
+  h2 {
+    font-size:1vw;
+    z-index: 2;
+    
+  }
+
+p {
+  color: white;
+}
+
+.version {
+  color: rgb(255, 255, 255);
+  float: right;
+  font-size: 2vw;
+  z-index: 2;
+  position: absolute;
+  right:1em;
+}
+
+.game-info {
+  font-weight: bold;
+  position: absolute;
+  z-index: 2;
+  left: 0.5em;
+  top: 3em;
+}
+
+#lives {
+  color: red;
+}
+
+.menu {
+  bottom: 5vh;
+  position: absolute;
+  z-index: 2;
+  float: right;
+  width: 70%;
+  background-color: var(--transparent);
+  border: 5px solid grey;
+  margin: 0em;
+  padding:1em;
+  align-items: stretch; 
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.item-container {
+  background-color: white;
+  padding: 1em;
+  margin: .5em;
+}
+
+
+#game-over {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background: black;
+  z-index: 10;
+  opacity: 1;
+  display: none;
+}
+
+#game-over h1 {
+  position: relative;
+  color: white;
+  top: 50%;
+  text-align: center;
+  opacity: 1;
+}
+
+#game-over p {
+  position: relative;
+  color: white;
+  top: 60%;
+  text-align: center;
+  opacity: 1;
+}
+
+@media only screen and (max-width: 1000px) {
+
+  h2 {
+    font-size:2vw;
+  }
+
+  .menu {
+    display: none;
+
+  }
+
+  #button {
+    display: block;
+    z-index: 3;
+    background-image: url('../assets/images/button.png');
+    background-repeat: no-repeat;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    left: calc(50% - 50px);
+    bottom: 5vh;
+  }
+}

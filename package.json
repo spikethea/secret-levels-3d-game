@@ -1,0 +1,22 @@
+{
+  "name": "projectthree",
+  "version": "1.0.0",
+  "description": "three.js starter project by quince",
+  "main": "app.js",
+  "dependencies": {
+    "cannon": "^0.6.2",
+    "express": "^4.17.1",
+    "orbit-controls-es6": "^2.0.1",
+    "three": "^0.116.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "three.js"
+  ],
+  "author": "Quince Gore-Rodney",
+  "license": "ISC",
+  "type": "module"
+}
