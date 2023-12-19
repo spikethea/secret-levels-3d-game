@@ -1,5 +1,6 @@
 //GLOBAL VARIABLES
-    
+    const dnbSoundtrack = new Audio('../assets/dnb-soundtrack.mp3');
+    dnbSoundtrack.volume = 0.3;
     //User Interface
 
     let livesCounter = document.getElementById('lives');
@@ -22,12 +23,17 @@
     let initialTouch = {x:0, y:0};
     let movingTouch = {x:0, y:0};
     let touchDistance = {x:0, y:0};
+    
 
-    if (isTouchDevice()) {
+    function isTouchDevice() {
+        return (('ontouchstart' in window) ||
+           (navigator.maxTouchPoints > 0) ||
+           (navigator.msMaxTouchPoints > 0));
+      }
+    if (isTouchDevice) {
         touchcontrols = true;
-        console.log("Touch Controls");
-        console.log(window.innerWidth);
     }
+
 
     //Stats.js
     let stats = new Stats;
@@ -283,8 +289,8 @@ function createBall(){
     ball.position.set(pos.x, pos.y, pos.z);
     ball.scale.set(scale.x, scale.y, scale.z);
     
-    ball.castShadow = true;
-    ball.receiveShadow = true;
+    // ball.castShadow = true;
+    // ball.receiveShadow = true;
 
     scene.add(ball);
     ball.name = "player";
@@ -382,7 +388,11 @@ function moveBall () { // TODO: Lower Mid-Air Speed
 function Reposition () {
     if (lives > 0) {
         lives -= 1;
-        document.getElementById("lives").innerHTML = lives;
+        let livesString = '';
+        for (let i = 0; i < lives; i++) {
+            livesString = livesString + '&#9679;'
+        }
+        document.getElementById("lives").innerHTML = livesString;
     } else {
         gameOver();
     }
@@ -939,13 +949,19 @@ function rotateBlock(){
 
 function loadCharacter () {
     const gltfloader = new THREE.GLTFLoader();
-    const url = '../assets/meshes/character.gltf'
+    const url = '../assets/meshes/malik.glb'
     const gltf = gltfloader.load (url, (gltf) => {
         character = new THREE.Group();
-        character.add(gltf.scene);
+        character.add(gltf.scene.children[0]);
         character.rotation.set(0, Math.PI/2, 0);
         character.position.set(0, 0.5, 0);
         character.scale.set(0.2, 0.2, 0.2);
+        console.log(character.children);
+        // character.children[2].castShadow = true;
+        // character.children[2].receiveShadow = true;
+        // character.children[1].castShadow = true;
+        // character.children[1].receiveShadow = true;
+        character.children[0].children[1].castShadow = true;
         scene.add(character);
         character.name = "character";
         ballObject.add(character);
@@ -1056,7 +1072,7 @@ function init() {
 
     renderer = new THREE.WebGLRenderer( { canvas, antialias: true, alpha: true } );
     renderer.setPixelRatio( window.devicePixelRatio );
-    renderer.setSize( window.innerWidth/2, window.innerHeight/2, false );
+    renderer.setSize( window.innerWidth, window.innerHeight, false );
     document.body.appendChild( renderer.domElement );
 
     renderer.gammaFactor = 2.2;//Correcting the scenes Gamma Values
@@ -1175,10 +1191,13 @@ function init() {
 //Keyboard Controls
 
     let keyState = [];// Creates an array list to fill keydown and keyup values with. This method removes the delay by implementing a game loop which checks every 10 milliseconds for input
-    
+
     
     window.addEventListener('keydown',function(e){// goes 
         keyState[e.keyCode || e.which] = true;// If the value is tr, 
+        touchcontrols = false;
+        dnbSoundtrack.loop = true;
+        dnbSoundtrack.play();
     },true);
     
     window.addEventListener('keyup',function(e){
@@ -1187,7 +1206,6 @@ function init() {
 
     function gameLoop() {
         if (touchcontrols == false) {
-        console.log("no touch controls");
         if (keyState[37] || keyState[65]){
             moveDirection.left = 1;
         } else (moveDirection.left = 0);
@@ -1202,7 +1220,7 @@ function init() {
 
         if (keyState[40] || keyState[83]){
             moveDirection.back = 1;
-    } else (moveDirection.back = 0);
+        } else (moveDirection.back = 0);
         
         if (keyState[32]){
             moveDirection.jump = true
@@ -1213,9 +1231,8 @@ function init() {
             let vector = new Ammo.btVector3(0,5,0); 
             ballObject.userData.physicsBody.setAngularVelocity(vector);
         } 
-        
-       setTimeout(gameLoop, 10);
     }
+    setTimeout(gameLoop, 10);
     }
     
 
@@ -1279,8 +1296,12 @@ function onMouseMove (event) {
 }
 
 window.addEventListener('touchstart', event  => {
+    if (dnbSoundtrack.paused) {
+        dnbSoundtrack.loop = true;
+        dnbSoundtrack.play();
+    }
     event.preventDefault();
-    document.getElementById("debug").innerHTML = event.changedTouches.length;
+    // document.getElementById("debug").innerHTML = event.changedTouches.length;
     touchButton.style.filter = 'blur(3px)';
 
     if (event.touches.length === 1) {

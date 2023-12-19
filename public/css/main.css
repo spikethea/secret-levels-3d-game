@@ -7,6 +7,11 @@ html {
   height: 100%;
 }
 
+@font-face {
+  font-family: TitleFont;
+  src: url('../assets/fonts/Sannie_Typeface.otf');
+}
+
 body {
   z-index: -200;
   background: rgb(117,117,117);
@@ -29,8 +34,8 @@ body {
 
   h1 { 
     
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: rgb(255, 111, 255);
+    font-family: TitleFont;
+    color: rgb(255, 255, 255);
     letter-spacing: 0.2em;
     font-size: 5vw;
     font-weight: bold;
@@ -59,6 +64,7 @@ p {
 }
 
 .game-info {
+  font-size: 2rem;
   font-weight: bold;
   position: absolute;
   z-index: 2;
@@ -75,19 +81,21 @@ p {
   position: absolute;
   z-index: 2;
   float: right;
-  width: 70%;
+  width: fit-content;
   background-color: var(--transparent);
-  border: 5px solid grey;
-  margin: 0em;
+  border-top: 2px solid rgb(255, 255, 255);
+  border-bottom: 2px solid rgb(255, 255, 255);
+  margin: 0.5em;
   padding:1em;
   align-items: stretch; 
   display: flex;
-  flex-wrap: nowrap;
+  flex-direction: column;
+  background: #0b3a17;
 }
 
-.item-container {
-  background-color: white;
-  padding: 1em;
+.menu h2 {
+  font-size: 0.8rem;
+  color: white;
   margin: .5em;
 }
 
@@ -122,6 +130,18 @@ p {
 
   h2 {
     font-size:2vw;
+  }
+
+  h1.title {
+    
+    margin: 0.5rem;
+    width: 100%;
+    text-align: center;
+  }
+
+  .game-info {
+    font-size: 1rem;
+    top: 3rem;
   }
 
   .menu {
